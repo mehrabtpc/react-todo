@@ -3,8 +3,7 @@ import { TodoItem } from './TodoItem';
 import { v4 as uuidv4 } from 'uuid';
 
 function Todos (){
-
-    const [todos,useTodos] =useState([
+    const [todos,setTodos] =useState([
         {
             id: uuidv4(),
             title: "todo 1",
@@ -19,18 +18,38 @@ function Todos (){
     ])
   const handleCreateTodo = (event) => {
     if (event.key === "Enter") {
-      alert("Enter pressed!");
+      setTodos([
+        ...todos,
+        {
+          id: uuidv4(),
+          title: event.target.value,
+          checked: 1
+        }
+      ]);
+      event.target.value = '';
     }
   };
+  const handleDeleteTodo = (todo) => {
+    let newTodos = todos.filter((TodoItem)=>{
+      return todo != TodoItem.id;
+    })
+    setTodos(newTodos);
+  }
+
+  const handleDoneTodo = (todo) => {
+      let newTodos = todos.map((TodoItem)=>{
+        if(todo == TodoItem.id){
+          TodoItem.checked = !TodoItem.checked;
+      }
+        return TodoItem;
+    })
+      setTodos(newTodos);
+  }
   const handleUpdateTodo = (todo) => {
-    alert('edit');
+
+    alert('developing edit');
   }
-  const handleDeleteTodo = () => {
-    alert('delete')
-  }
-  const handleDoneTodo = () => {
-    alert('done')
-  } 
+
     return(
         <>
         <div className="bg-gray-100">
