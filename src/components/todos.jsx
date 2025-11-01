@@ -7,7 +7,7 @@ function Todos (){
         {
             id: uuidv4(),
             title: "todo 1",
-            checked:0,
+            checked:1,
         },
         {
             id: uuidv4(),
@@ -23,7 +23,7 @@ function Todos (){
         {
           id: uuidv4(),
           title: event.target.value,
-          checked: 1
+          checked: 0
         }
       ]);
       event.target.value = '';
