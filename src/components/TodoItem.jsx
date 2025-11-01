@@ -1,14 +1,15 @@
 import { useState } from "react";
 
-export const TodoItem = ({todo, onDelete,onUpdate,onChange}) =>{
+export const TodoItem = ({todo, onDelete,onUpdate,onChange,newTitleValue}) =>{
     const [ editMode , setEditMode ] = useState(false);
 
-    const editTodoHandler = (event) => {
-        if( event.key === 'Enter' ) {
-            onUpdate(todo , event.target.value);
-            setEditMode(false);
-        }
-    }
+const editTodoHandler = (event) => {
+  if (event.key === 'Enter') {
+    onUpdate(event.target.value);
+    setEditMode(false);
+  }
+};
+
     return (
         <>
             <li className="relative flex items-center justify-between px-2 py-6 border-b">
@@ -17,7 +18,7 @@ export const TodoItem = ({todo, onDelete,onUpdate,onChange}) =>{
                     editMode ?
                     <div>
                         <input type="text" defaultValue={todo?.title} onChange={() => {}} onKeyDown={editTodoHandler} className="w-full px-4 py-2 border border-gray-200 rounded" />
-                            <svg xmlns="http://www.w3.org/2000/svg" 
+                            <svg xmlns="http://www.w3.org/2000/svg" onClick={() => setEditMode(false)}
                             className="w-5 h-5 text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
@@ -29,7 +30,7 @@ export const TodoItem = ({todo, onDelete,onUpdate,onChange}) =>{
                             checked={todo.checked}
                             onChange={() => onChange(todo)}
                         />
-                            <p  className="inline-block mt-1 ml-2 text-gray-600 line-through">{todo.title}</p>
+                            <p  className="inline-block mt-1 ml-2 text-gray-600 ">{todo.title}</p>
 
                         <button type="button" className="absolute right-0 flex items-center  space-x-1">
                             <svg xmlns="http://www.w3.org/2000/svg" onClick={ () => setEditMode(true) } 
